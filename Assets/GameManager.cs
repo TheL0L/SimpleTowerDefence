@@ -61,4 +61,10 @@ public class GameManager : MonoBehaviour
         this.gold -= gold;
         return true;
     }
+
+    public void takeDamage(int damage)
+    {
+        health -= damage;
+    }
+
 }

@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform target;
+    [SerializeField]
+    private Vector3 target;
+
+    private List<Vector2> path;
+
+    GameManager manager;
 
     [SerializeField]
     private float health = 6.0f;
@@ -19,15 +25,18 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        manager = FindObjectOfType<GameManager>();
+        path = manager.getPath();
+        target = path.First();
+        path.Remove(target);
     }
 
     // Update is called once per frame
     void Update()
     {
+        move();
 
-
-        moveTowards(target.position);
+        
         if (!isAlive())
         {
             Destroy(this.gameObject);
@@ -35,11 +44,32 @@ public class Enemy : MonoBehaviour
 
     }
 
+    private void move()
+    {
+        if (Vector2.Distance(transform.position, target) < 0.1f)
+        {
+            if (path.Count > 0)
+            {
+                target = path.First();
+                path.Remove(target);
+            } 
+            else
+            {
+                manager.takeDamage((int)health);//change this
+                Destroy(this.gameObject);
+                return;
+            }
+        }
+        moveTowards(target);
+
+    }
+
     private void moveTowards(Vector3 target)
     {
 
-        Vector3 direction = (target - transform.position).normalized;
-        transform.position = transform.position + direction * Time.deltaTime;
+        Vector3 direction = (target - transform.position);
+        direction.z = 0;
+        transform.position = transform.position + direction.normalized * Time.deltaTime * speed;
 
     }
 
@@ -56,7 +86,7 @@ public class Enemy : MonoBehaviour
 
     public void OnDestroy()
     {
-        FindObjectOfType<GameManager>().addGold(reward_value);
+        manager.addGold(reward_value);//fix later
     }
 
 
