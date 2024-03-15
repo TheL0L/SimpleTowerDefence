@@ -244,6 +244,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf912f427778c249ac098139ccfa6b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 30
+  gold: 100
+  path_points: []
+  towers: []
 --- !u!4 &1915231578
 Transform:
   m_ObjectHideFlags: 0
