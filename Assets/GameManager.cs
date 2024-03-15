@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
     private int health = 30;
+    [SerializeField]
     private int gold = 100;
+
     private int wave_index = -1;
 
+    [SerializeField]
     private List<Vector2> path_points = new List<Vector2>();
+    [SerializeField]
     private List<Wave> waves = new List<Wave>();
+
     public List<GameObject> towers = new List<GameObject>();
 
     public void Start()
