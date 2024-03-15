@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     private int wave_index = -1;
 
     [SerializeField]
-    private List<Vector2> path_points = new List<Vector2>();
+    private List<GameObject> path_points = new List<GameObject>();
     [SerializeField]
     private List<Wave> waves = new List<Wave>();
 
@@ -30,7 +30,12 @@ public class GameManager : MonoBehaviour
 
     public List<Vector2> getPath()
     {
-        return new List<Vector2>(path_points);
+        List<Vector2> points = new List<Vector2>();
+        foreach (GameObject p in path_points)
+        {
+            points.Add(p.transform.position);
+        }
+        return points;
     }
 
     public bool isAlive()
