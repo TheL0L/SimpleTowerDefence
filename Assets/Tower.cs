@@ -15,7 +15,7 @@ public class Tower : MonoBehaviour
         public float damage;  // rethink
         public float range;
     }
-
+    GameManager manager;
     // can upgrade
     // can sell at cost*scaller
     // can not move
@@ -25,7 +25,7 @@ public class Tower : MonoBehaviour
 
     private float fire_rate; // per second
     private float damage; // damage per shot
-    private float range; // radius
+    private float range = 3; // radius
 
     private int level = 0;
 
@@ -38,18 +38,19 @@ public class Tower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     bool RaiseLevel() // will return true or false if it managed to raise the level
     {
-        if (level < properties.Count) { 
+        if (level < properties.Count)
+        {
 
             level++;//raise the level by 1
 
@@ -65,8 +66,9 @@ public class Tower : MonoBehaviour
         return false;
     }
 
-
-
-
+    public void OnDestroy()
+    {
+        manager.addGold(cost);
+    }
 
 }

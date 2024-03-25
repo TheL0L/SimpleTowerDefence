@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
 
     GameManager manager;
 
+    Tower tower;
+
     [SerializeField]
     private float health = 6.0f;
 
@@ -35,7 +37,11 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         move();
-
+        tower = FindObjectOfType<Tower>();
+        if (getDistance(this.gameObject.transform.position, tower.gameObject.transform.position) < 3)
+        {
+            takeDamage(0.5f);
+        }
         
         if (!isAlive())
         {
@@ -83,6 +89,13 @@ public class Enemy : MonoBehaviour
     {
         health -= damage;
     }
+
+
+    public float getDistance(Vector2 _enemy, Vector2 _tower) //Calculates the distance between two coordinates
+    {
+        return Vector2.Distance(_enemy, _tower);
+    }
+
 
     public void OnDestroy()
     {
