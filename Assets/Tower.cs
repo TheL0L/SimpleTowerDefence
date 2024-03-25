@@ -23,6 +23,8 @@ public class Tower : MonoBehaviour
 
     List<Properties> properties = new List<Properties>(); // a list that hold the properties of each level
 
+    Enemy _enemy;
+
     private float fire_rate; // per second
     private float damage; // damage per shot
     private float range = 3; // radius
@@ -44,7 +46,11 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        _enemy = FindObjectOfType<Enemy>();
+        if (getDistance(this.gameObject.transform.position, _enemy.gameObject.transform.position) < 3)
+        {
+            _enemy.takeDamage(0.5f);
+        }
     }
 
     bool RaiseLevel() // will return true or false if it managed to raise the level
@@ -69,6 +75,11 @@ public class Tower : MonoBehaviour
     public void OnDestroy()
     {
         manager.addGold(cost);
+    }
+
+    public float getDistance(Vector2 _enemy, Vector2 _tower) //Calculates the distance between two coordinates
+    {
+        return Vector2.Distance(_enemy, _tower);
     }
 
 }

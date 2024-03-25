@@ -37,11 +37,6 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         move();
-        tower = FindObjectOfType<Tower>();
-        if (getDistance(this.gameObject.transform.position, tower.gameObject.transform.position) < 3)
-        {
-            takeDamage(0.5f);
-        }
         
         if (!isAlive())
         {
