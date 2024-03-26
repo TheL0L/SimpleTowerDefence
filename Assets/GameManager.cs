@@ -28,12 +28,14 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public List<Vector2> getPath()
+    public Vector2[] getPath()
     {
-        List<Vector2> points = new List<Vector2>();
+        Vector2[] points = new Vector2[path_points.Count];
+        int index = 0;
         foreach (GameObject p in path_points)
         {
-            points.Add(p.transform.position);
+            points[index] = p.transform.position;
+            index++;
         }
         return points;
     }
